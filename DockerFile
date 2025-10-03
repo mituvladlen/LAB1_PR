@@ -1,0 +1,17 @@
+# Use Python base image
+FROM python:3.11-slim
+
+# Set working directory
+WORKDIR /app
+
+# Copy server code
+COPY server.py /app
+
+# Copy sample files into directory (optional)
+COPY www /app/www
+
+# Expose the port
+EXPOSE 8080
+
+# Run server (serving from /app/www)
+CMD ["python", "server.py", "www"]
