@@ -29,7 +29,7 @@ def run_server(directory, host="0.0.0.0", port=8080):
     # Create socket
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-    # Fix "OSError: Address already in use"
+    # Fix "OSError: Address already in use" without it, i would receive OSError, because OS keeps the old connection for a while
     server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
     server_socket.bind((host, port))
