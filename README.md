@@ -64,16 +64,16 @@ Uncomment the volumes section in `compose.yaml` to mount local `www` for live ed
 - The server handles one request at a time (sequential).
 
 ## HTTP testing
-# Directory listing (prints HTML)
+- Directory listing (prints HTML)
 curl http://localhost:8080/
 
-# Subfolder listing
+- Subfolder listing
 curl http://localhost:8080/reports/
 curl http://localhost:8080/urus/
 
-# Show only headers
+- Show only headers
 curl -I http://localhost:8080/
 
-# Download a PDF and PNG
+- Download a PDF and PNG
 curl http://localhost:8080/reports/week1.pdf -o .\week1.pdf
 curl http://localhost:8080/urus/urus1.png -o .\urus1.png
