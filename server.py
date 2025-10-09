@@ -22,9 +22,16 @@ def generate_directory_listing(root_dir: str, rel_path: str) -> bytes:
     safe_rel = rel_path.strip("/")
     abs_dir = os.path.join(root_dir, safe_rel)
     try:
-        items = sorted(os.listdir(abs_dir))
+        names = os.listdir(abs_dir)
     except OSError:
         return not_found_response()
+
+    # Custom ordering: index.html first, then doc.pdf, then image.png, then the rest (alphabetically)
+    priority = {"index.html": 0, "doc.pdf": 1, "image.png": 2}
+    def sort_key(name: str):
+        lname = name.lower()
+        return (priority.get(lname, 10), lname)
+    items = sorted(names, key=sort_key)
 
     title_path = "/" + (safe_rel + "/" if safe_rel else "")
     lines = [

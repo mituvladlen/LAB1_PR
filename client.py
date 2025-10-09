@@ -2,12 +2,6 @@ import sys
 import os
 import socket
 
-# Usage: client.py server_host server_port url_path directory
-# Behavior:
-#  - If response is HTML (text/html): print body to stdout
-#  - If response is image/png or application/pdf: save to given directory using last path segment as filename
-#  - Otherwise: print status and exit
-
 BUFFER_SIZE = 8192
 
 def http_get(host: str, port: int, path: str) -> bytes:
