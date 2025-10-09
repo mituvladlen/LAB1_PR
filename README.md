@@ -62,3 +62,18 @@ Uncomment the volumes section in `compose.yaml` to mount local `www` for live ed
 - Directory listings show folders and files with clickable links.
 - For a missing resource or unsupported type, the server returns HTTP 404.
 - The server handles one request at a time (sequential).
+
+## HTTP testing
+    # Directory listing (prints HTML)
+curl http://localhost:8080/
+
+    # Subfolder listing
+curl http://localhost:8080/reports/
+curl http://localhost:8080/urus/
+
+    # Show only headers
+curl -I http://localhost:8080/
+
+    # Download a PDF and PNG
+curl http://localhost:8080/reports/week1.pdf -o .\week1.pdf
+curl http://localhost:8080/urus/urus1.png -o .\urus1.png
