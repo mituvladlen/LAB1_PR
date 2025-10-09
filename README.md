@@ -65,15 +65,23 @@ Uncomment the volumes section in `compose.yaml` to mount local `www` for live ed
 
 ## HTTP testing
 - Directory listing (prints HTML)
+```powershell
 curl http://localhost:8080/
+```
 
 - Subfolder listing
+```powershell
 curl http://localhost:8080/reports/
 curl http://localhost:8080/urus/
+```
 
 - Show only headers
+```powershell
 curl -I http://localhost:8080/
+```
 
 - Download a PDF and PNG
+```powershell
 curl http://localhost:8080/reports/week1.pdf -o .\week1.pdf
 curl http://localhost:8080/urus/urus1.png -o .\urus1.png
+```
