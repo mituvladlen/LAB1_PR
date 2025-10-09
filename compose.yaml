@@ -1,0 +1,10 @@
+services:
+  web:
+    build: .
+    container_name: lab1-server
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    # If you want to serve local files without rebuilding, uncomment the next lines
+    # volumes:
+    #   - ./www:/app/www:ro
