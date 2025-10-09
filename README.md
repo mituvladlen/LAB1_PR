@@ -1,4 +1,4 @@
-# Lab 1: Simple HTTP File Server (TCP sockets)
+# Lab 1: HTTP file server with TCP sockets
 
 This project implements a minimal HTTP server using raw TCP sockets and a small HTTP client script.
 
