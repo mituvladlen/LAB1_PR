@@ -28,8 +28,8 @@ Downloads and prints based on content-type.
 ```powershell
 python .\client.py 127.0.0.1 8080 / subdir
 python .\client.py 127.0.0.1 8080 /index.html .
-python .\client.py 127.0.0.1 8080 /image.png downloads
-python .\client.py 127.0.0.1 8080 /docs/file.pdf downloads
+python .\client.py 127.0.0.1 8080 /image.png .\downloads
+python .\client.py 127.0.0.1 8080 /docs/file.pdf .\downloads
 ```
 
 - If HTML: prints body
