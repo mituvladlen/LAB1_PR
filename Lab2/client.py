@@ -2,9 +2,11 @@ import sys
 import os
 import socket
 
+# Socket read chunk size (bytes) when receiving the HTTP response
 BUFFER_SIZE = 8192
 
 def http_get(host: str, port: int, path: str) -> bytes:
+    """Open a TCP connection and perform a minimal HTTP/1.1 GET for (host, port, path)."""
     # Build minimal HTTP/1.1 GET request
     if not path.startswith("/"):
         path = "/" + path
@@ -23,6 +25,7 @@ def http_get(host: str, port: int, path: str) -> bytes:
 
 
 def parse_http_response(raw: bytes):
+    """Parse raw HTTP response bytes into (status_code, headers dict, body bytes)."""
     # Split headers and body
     sep = raw.find(b"\r\n\r\n")
     if sep == -1:
@@ -48,6 +51,7 @@ def parse_http_response(raw: bytes):
 
 
 def main():
+    """CLI entry: download/print based on content-type (HTML prints, PNG/PDF save)."""
     if len(sys.argv) != 5:
         print("Usage: python client.py server_host server_port url_path directory")
         sys.exit(1)
