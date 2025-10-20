@@ -1,20 +1,10 @@
-"""
-Rate Limiting Test Script
-
-This script tests the rate limiting feature by simulating:
-1. A "spammer" that exceeds the rate limit
-2. A "normal user" that stays just below the rate limit
-
-Compare the throughput for both scenarios.
-"""
-
 import requests
 import time
 import threading
 from datetime import datetime
 
+# Thread-safe statistics collector
 class RequestStats:
-    """Thread-safe statistics collector."""
     def __init__(self):
         self.lock = threading.Lock()
         self.total_requests = 0
@@ -24,8 +14,8 @@ class RequestStats:
         self.start_time = None
         self.end_time = None
     
+    # Record a request result
     def record_request(self, status_code):
-        """Record a request result."""
         with self.lock:
             self.total_requests += 1
             if status_code == 200:
@@ -35,29 +25,29 @@ class RequestStats:
             else:
                 self.error_requests += 1
     
+    # Mark start time
     def start(self):
-        """Mark start time."""
         self.start_time = time.time()
     
+    # Mark end time
     def stop(self):
-        """Mark end time."""
         self.end_time = time.time()
     
+    # Get test duration
     def get_duration(self):
-        """Get test duration."""
         if self.start_time and self.end_time:
             return self.end_time - self.start_time
         return 0
     
+    # Calculate successful requests per second
     def get_throughput(self):
-        """Calculate successful requests per second."""
         duration = self.get_duration()
         if duration > 0:
             return self.successful_requests / duration
         return 0
     
+    # Print statistics report
     def print_report(self, client_name):
-        """Print statistics report."""
         duration = self.get_duration()
         throughput = self.get_throughput()
         
@@ -71,11 +61,8 @@ class RequestStats:
         if self.total_requests > 0:
             print(f"  Success rate: {self.successful_requests/self.total_requests*100:.1f}%")
 
+# Spammer client sends requests as fast as possible
 def spammer_client(url, duration_seconds, stats):
-    """
-    Spammer client: Sends requests as fast as possible.
-    Should get rate limited frequently.
-    """
     stats.start()
     end_time = time.time() + duration_seconds
     request_count = 0
@@ -101,11 +88,8 @@ def spammer_client(url, duration_seconds, stats):
     stats.stop()
     print(f"[{datetime.now().strftime('%H:%M:%S')}] Spammer finished - sent {request_count} requests")
 
+# Normal client sends requests at a controlled rate
 def normal_client(url, duration_seconds, requests_per_second, stats):
-    """
-    Normal client: Sends requests at a controlled rate just below the limit.
-    Should rarely or never get rate limited.
-    """
     stats.start()
     end_time = time.time() + duration_seconds
     request_count = 0
@@ -134,8 +118,8 @@ def normal_client(url, duration_seconds, requests_per_second, stats):
     stats.stop()
     print(f"[{datetime.now().strftime('%H:%M:%S')}] Normal user finished - sent {request_count} requests")
 
+# Main test function
 def main():
-    """Main test function."""
     HOST = "localhost"
     PORT = 8080
     TEST_DURATION = 15  # seconds

@@ -1,29 +1,17 @@
-"""
-Race Condition Demonstration Script
-
-This script demonstrates the race condition in the naive counter implementation
-by making many concurrent requests to the same file.
-"""
-
 import requests
 import time
 from concurrent.futures import ThreadPoolExecutor
 
+# Make a single HTTP request
 def make_request(url, request_id):
-    """Make a single HTTP request."""
     try:
         response = requests.get(url, timeout=10)
         return {'id': request_id, 'success': response.status_code == 200}
     except requests.RequestException:
         return {'id': request_id, 'success': False}
 
+# Make many concurrent requests to demonstrate race condition
 def test_race_condition(url, num_requests=100):
-    """
-    Make many concurrent requests to demonstrate race condition.
-    
-    If the counter is not thread-safe, the final count will be less than
-    the number of requests due to lost updates.
-    """
     print(f"Making {num_requests} concurrent requests to: {url}")
     print("This will test the thread safety of the hit counter...")
     print("-" * 60)
@@ -43,8 +31,8 @@ def test_race_condition(url, num_requests=100):
     
     return successful
 
+# Main demonstration function
 def main():
-    """Main demonstration function."""
     HOST = "localhost"
     PORT = 8080
     NUM_REQUESTS = 100

@@ -1,16 +1,9 @@
-"""
-Performance comparison between single-threaded and multi-threaded HTTP server.
-
-This script makes 10 concurrent requests to test both server modes and compares
-the total time taken to handle all requests.
-"""
-
 import requests
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
+# Make a single HTTP request and measure time
 def make_request(url, request_id):
-    """Make a single HTTP request and measure time."""
     start = time.time()
     try:
         response = requests.get(url, timeout=30)
@@ -31,8 +24,8 @@ def make_request(url, request_id):
             'error': str(e)
         }
 
+# Make multiple concurrent requests and measure total time
 def test_concurrent_requests(url, num_requests=10):
-    """Make multiple concurrent requests and measure total time."""
     print(f"\nTesting with {num_requests} concurrent requests to {url}")
     print("-" * 60)
     
@@ -71,8 +64,8 @@ def test_concurrent_requests(url, num_requests=10):
         'throughput': successful/total_time
     }
 
+# Main test function
 def main():
-    """Main test function."""
     # Test configuration
     HOST = "localhost"
     PORT = 8080
