@@ -115,6 +115,13 @@ def main():
     print("  - All updates are preserved")
     
     print("\n" + "=" * 60)
+    print("VERIFY THE RESULTS:")
+    print("=" * 60)
+    print(f"Open http://localhost:{PORT}/www/ in your browser")
+    print("Check the 'Hits' column for 'index.html':")
+    print(f"  - After UNSAFE test: Should be < {NUM_REQUESTS} (race condition)")
+    print(f"  - After SAFE test: Should be exactly {NUM_REQUESTS} (thread-safe)")
+    print("=" * 60)
 
 if __name__ == "__main__":
     try:

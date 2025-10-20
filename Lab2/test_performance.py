@@ -71,8 +71,8 @@ def main():
     PORT = 8080
     NUM_REQUESTS = 10
     
-    # Test file path
-    TEST_PATH = "/"
+    # Test file path - focus on ONE file to check hits counter
+    TEST_PATH = "/www/index.html"
     
     print("=" * 60)
     print("HTTP Server Performance Comparison Test")
@@ -80,7 +80,7 @@ def main():
     print(f"\nConfiguration:")
     print(f"  - Number of concurrent requests: {NUM_REQUESTS}")
     print(f"  - Server: {HOST}:{PORT}")
-    print(f"  - Test path: {TEST_PATH}")
+    print(f"  - Test file: {TEST_PATH}")
     print("\nNote: Make sure the server is running with ~1s delay:")
     print("  Single-threaded: python server.py www --single-threaded --delay 1")
     print("  Multi-threaded:  python server.py www --delay 1")
@@ -124,9 +124,17 @@ def main():
     print(f"  - Actual speedup: {speedup:.2f}x")
     
     if speedup > 5:
-        print("\n Multi-threading is working effectively!")
+        print("\n✓ Multi-threading is working effectively!")
     else:
-        print("\n Multi-threading may not be working as expected.")
+        print("\n⚠ Multi-threading may not be working as expected.")
+    
+    print("\n" + "=" * 60)
+    print("CHECK HITS COUNTER:")
+    print("-" * 60)
+    print(f"Open http://localhost:{PORT}/www/ in your browser")
+    print(f"Look at the 'Hits' column for 'index.html'")
+    print(f"It should show {NUM_REQUESTS * 2} hits (10 from each test)")
+    print("=" * 60)
 
 if __name__ == "__main__":
     try:

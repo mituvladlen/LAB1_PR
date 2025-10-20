@@ -135,13 +135,14 @@ def main():
     print(f"\nTest configuration:")
     print(f"  - Server: {HOST}:{PORT}")
     print(f"  - Test duration: {TEST_DURATION} seconds")
+    print(f"  - Test file: /www/index.html")
     
     print("\nMake sure the server is running:")
     print("  python server.py www")
     
     input("\nPress Enter to start the test...")
     
-    url = f"http://{HOST}:{PORT}/"
+    url = f"http://{HOST}:{PORT}/www/index.html"
     
     # Test 1: Normal user staying under the limit
     print("\n" + "=" * 70)
@@ -182,6 +183,14 @@ def main():
         print("\n✓ Rate limiting is working! Spammer was rate limited.")
     else:
         print("\n⚠ Rate limiting may not be working as expected.")
+    
+    print("\n" + "=" * 60)
+    print("CHECK HITS COUNTER:")
+    print("=" * 60)
+    print(f"Open http://localhost:{PORT}/www/ in your browser")
+    print("Check the 'Hits' column for 'index.html'")
+    print(f"Total hits should be: {stats1.total_requests + spammer_stats.total_requests}")
+    print("=" * 60)
 
 if __name__ == "__main__":
     try:
