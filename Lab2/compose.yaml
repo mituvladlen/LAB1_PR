@@ -1,10 +1,21 @@
 services:
-  web:
-    build: .
-    container_name: lab1-server
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pr-web-server-lab2
+    environment:
+      PORT: 8080
     ports:
       - "8080:8080"
-    restart: unless-stopped
-    # If you want to serve local files without rebuilding, uncomment the next lines
-    # volumes:
-    #   - ./www:/app/www:ro
+    volumes:
+      - ./www:/app/www:ro
+    command: ["python", "server.py", "www"]
+
+  requesttest:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    entrypoint: ["python"]
+    depends_on:
+      - server

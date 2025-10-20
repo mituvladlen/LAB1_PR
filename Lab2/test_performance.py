@@ -124,9 +124,9 @@ def main():
     print(f"  - Actual speedup: {speedup:.2f}x")
     
     if speedup > 5:
-        print("\n✓ Multi-threading is working effectively!")
+        print("\n Multi-threading is working effectively!")
     else:
-        print("\n⚠ Multi-threading may not be working as expected.")
+        print("\n Multi-threading may not be working as expected.")
 
 if __name__ == "__main__":
     try:
